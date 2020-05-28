@@ -328,7 +328,7 @@ public class ErodeBrush extends Brush {
          * @return if the block is Empty.
          */
         public boolean isEmpty() {
-            return this.getMaterial() == Material.AIR;
+            return (this.getMaterial() == Material.AIR) || (this.getMaterial() == Material.CAVE_AIR) || (this.getMaterial() == Material.VOID_AIR);
         }
 
         /**

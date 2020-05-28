@@ -201,6 +201,17 @@ public abstract class Brush implements IBrush {
         return targetBlock.getWorld();
     }
 
+    public boolean isAnyTypeOfAir(Material material){
+        switch (material){
+            case AIR:
+            case VOID_AIR:
+            case CAVE_AIR:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     /**
      * Looks up Type ID of Block at given coordinates in the world of the targeted Block.
      *

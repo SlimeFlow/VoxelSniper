@@ -41,13 +41,13 @@ public class TreeSnipeBrush extends Brush {
     @SuppressWarnings("deprecation")
     private void safeGenerateTree(final SnipeData v, Block targetBlock) {
 
-        if (!targetBlock.getType().isAir()) {
+        if (!isAnyTypeOfAir(targetBlock.getType())) {
             // We need the air block location above the target to generate a tree.
-            Block airBlockOnTop = targetBlock.getRelative(BlockFace.UP);
+            Block relativeBlockUP = targetBlock.getRelative(BlockFace.UP);
 
-            if (airBlockOnTop.getType().isAir()) {
+            if (isAnyTypeOfAir(relativeBlockUP.getType())) {
                 UndoDelegate undoDelegate = new UndoDelegate(targetBlock.getWorld());
-                boolean generated = this.getWorld().generateTree(airBlockOnTop.getLocation(), this.treeType, undoDelegate);
+                boolean generated = this.getWorld().generateTree(relativeBlockUP.getLocation(), this.treeType, undoDelegate);
 
                 // We let minecraft decide if a tree can be generated at this location and check the result.
                 if (generated) {
@@ -73,11 +73,11 @@ public class TreeSnipeBrush extends Brush {
     @SuppressWarnings("deprecation")
     private void forceGenerateTree(final SnipeData v, Block targetBlock) {
 
-        if (!targetBlock.getType().isAir()) {
+        if (!isAnyTypeOfAir(targetBlock.getType())) {
             //Get the air block on top.
-            Block airBlockOnTop = targetBlock.getRelative(BlockFace.UP);
+            Block relativeBlockUP = targetBlock.getRelative(BlockFace.UP);
 
-            if (airBlockOnTop.getType().isAir()){
+            if (isAnyTypeOfAir(relativeBlockUP.getType())){
 
                 //Prepare the new material
                 Material newMaterialBeneath;
@@ -96,7 +96,7 @@ public class TreeSnipeBrush extends Brush {
                 //Creating proper terrain and spawn attempt.
                 targetBlock.setType(newMaterialBeneath);
                 targetBlock.setBlockData(newMaterialBeneath.createBlockData());
-                boolean generated = this.getWorld().generateTree(airBlockOnTop.getLocation(), this.treeType, undoDelegate);
+                boolean generated = this.getWorld().generateTree(relativeBlockUP.getLocation(), this.treeType, undoDelegate);
 
                 //Process result.
                 if (generated) {

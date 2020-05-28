@@ -29,6 +29,8 @@ public class OceanBrush extends Brush {
 
     static {
         EXCLUDED_MATERIALS.add(Material.AIR);
+        EXCLUDED_MATERIALS.add(Material.VOID_AIR);
+        EXCLUDED_MATERIALS.add(Material.CAVE_AIR);
         EXCLUDED_MATERIALS.add(Material.OAK_SAPLING);
         EXCLUDED_MATERIALS.add(Material.ACACIA_SAPLING);
         EXCLUDED_MATERIALS.add(Material.BIRCH_SAPLING);
@@ -124,7 +126,7 @@ public class OceanBrush extends Brush {
                 // go down from highest Y block down to new sea floor
                 for (int y = highestY; y > newSeaFloorLevel; y--) {
                     final Block block = world.getBlockAt(x, y, z);
-                    if (!block.getType().equals(Material.AIR)) {
+                    if (!isAnyTypeOfAir(block.getType())) {
                         undo.put(block);
                         block.setType(Material.AIR);
                     }
